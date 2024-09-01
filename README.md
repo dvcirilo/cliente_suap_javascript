@@ -1,5 +1,11 @@
 # Cliente SUAP Javascript
 
+## Modificações
+
+O repositório original usa a autenticação *implicit*, que não é mais recomendada ([Fonte](https://oauth.net/2/grant-types/implicit/)).
+
+Esse repositório usa a autenticação *Authorization Code with PKCE* ([Referência](https://oauth.net/2/pkce/))
+
 ## Sobre
 
 O **Cliente SUAP Javascript** implementa a integração com o SUAP, tendo 2 principais funcionalidades:
@@ -14,7 +20,7 @@ O **Cliente SUAP Javascript** implementa a integração com o SUAP, tendo 2 prin
 Crie sua aplicação em https://suap.ifrn.edu.br/api/ com as seguintes informações:
 
 - **Client Type:** Public
-- **Authorization Grant Type:** Implicit
+- **Authorization Grant Type:** Authorization Code
 - **Redicert URIs**: http://localhost:8888/
 
 ### Instalando, Configurando e Rodando o Cliente SUAP Javascript
@@ -28,6 +34,6 @@ Faça os ajustes necessários, definindo a variável **CLIENT_ID**.
 
 É necessário rodar a aplicação cliente num servidor local (usamos o Python SimpleHTTPServer):
 
-	python -m SimpleHTTPServer 8888
+	python -m http.server 8888
 
 Abra seu browser em http://localhost:8888/
