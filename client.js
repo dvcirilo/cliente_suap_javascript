@@ -43,7 +43,7 @@ class OAuthClient {
   async init(){
     if (!this.isAuthenticated()){
       if (this.urlParams.get("code")) {
-        if (this.urlParams.get("state") == sessionStorage.getItem("oauthState")) {
+        if (this.urlParams.get("state") === sessionStorage.getItem("oauthState")) {
           await this.authorize(this.urlParams.get("code"));
           window.location = this.clientParams.redirectURI;
         }
