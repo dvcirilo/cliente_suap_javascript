@@ -1,28 +1,32 @@
 let parameters = new ClientParams(SUAP_URL, CLIENT_ID, REDIRECT_URI, SCOPE);
 let suap = new OAuthClient(parameters);
+
 suap.init();
 
-$(document).ready(function () {
-    $("#suap-login-button").attr('href', suap.getLoginURL());
-    if (suap.isAuthenticated()) {
-        $('.is-authenticated').removeClass("is-hidden");
-        $('#token').text(suap.token.value);
-        $('#validade_token').text(suap.token.expirationTime);
-        $("#escopos_autorizados").text(suap.token.scope);
-        $("#escopos").val(suap.token.scope);
-    } else {
-        $('.is-anonymous').removeClass("is-hidden");
-    }
-});
-$("#suap-logout-button").click(function(){
+document.getElementById("suap-login-button").setAttribute("href", suap.getLoginURL());
+
+if (suap.isAuthenticated()) {
+  document.querySelector(".is-authenticated").classList.remove("is-hidden");
+  document.getElementById("token").textContent = suap.token.value;
+  document.getElementById("validade_token").textContent = suap.token.expirationTime;
+  document.getElementById("escopos_autorizados").textContent = suap.token.scope;
+  document.getElementById("escopos").value = suap.token.scope;
+} else {
+  document.querySelector(".is-anonymous").classList.remove("is-hidden");
+}
+
+document.getElementById("suap-logout-button")
+  .addEventListener("click", () => {
     suap.logout();
-});
-$("#suap-resource-button").click(function(){
+  });
+
+document.getElementById("suap-resource-button")
+  .addEventListener("click", () => {
     if (suap.isAuthenticated()) {
-        let scope = $("#escopos").val();
-        let callback = function (response) {
-            $("#response").text(JSON.stringify(response, null, 4));
-        };
-        suap.getResource(suap.clientParams.resourceURL, callback);
+      let scope = document.getElementById("escopos").value;
+      const callback = (response) => {
+        document.getElementById("response").textContent = JSON.stringify(response, null, 4);
+      };
+      suap.getResource(suap.clientParams.resourceURL, callback);
     }
-});
+  });
